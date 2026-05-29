@@ -1,0 +1,33 @@
+{
+  "name": "helpdeskti_tfinal",
+  "version": "1.0.0",
+  "description": "Projeto de HelpDesk de TI para curso de Análise e Desenvolvimento de Sistemas",
+  "homepage": "https://github.com/Trindadefelipe/HelpDeskTi_TFinal#readme",
+  "bugs": {
+    "url": "https://github.com/Trindadefelipe/HelpDeskTi_TFinal/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trindadefelipe/HelpDeskTi_TFinal.git"
+  },
+  "license": "ISC",
+  "author": "Felipe Trindade",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "prod": "node app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^4.22.2",
+    "express-session": "^1.19.0",
+    "pg": "^8.21.0"
+  }
+}
