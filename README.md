@@ -221,7 +221,7 @@ A Inteligência Artificial foi utilizada como **ferramenta de apoio** no desenvo
 | Nome | GitHub |
 |---|---|
 | Felipe Trindade | [@Trindadefelipe](https://github.com/Trindadefelipe) |
-| Higor Bueno | [@HigorHBO](hhttps://github.com/HigorHBO) |
+| Higor Bueno | [@HigorHBO](https://github.com/HigorHBO) |
 | Fernando Vinicius | [@FerVini](https://github.com/FerVini) |
 | Nicolas Toshio | [@NiToshi1](https://github.com/NiToshi1) |
 
