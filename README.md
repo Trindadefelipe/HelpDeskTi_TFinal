@@ -179,18 +179,6 @@ PORT=3000
 
 ---
 
-## 📸 Interface do Sistema
-
-> Protótipo das telas principais da aplicação.
-
-### 🔑 Tela de Login
-![Login](./docs/screenshots/login.png)
-
-### 📊 Dashboard — Gerenciamento de Chamados
-![Dashboard](./docs/screenshots/dashboard.png)
-
----
-
 ## 🔐 Autenticação e Segurança
 
 - Autenticação via formulário de login com validação no banco de dados
