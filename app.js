@@ -3,7 +3,7 @@ const path = require("path");
 const app = express();
 const port = process.env.PORT || 3000;
 
-const pool = require("./database/db");
+const chamadoRoutes = require("./src/routes/chamadoRoutes");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src", "views"));
@@ -16,15 +16,10 @@ app.get("/login", (req, res) => {
     res.render("auth/login");
 });
 
-app.get("/", async (req, res) => {
-    try {
-        const chamados = [];
-        const stats = { total: 0, abertos: 0, andamento: 0, resolvidos: 0 };
-        res.render("dashboard", { chamados, stats });
-    } catch (erro) {
-        console.error(erro);
-        res.status(500).send("Erro ao carregar o dashboard.");
-    }
+app.use("/chamados", chamadoRoutes);
+
+app.get("/", (req, res) => {
+    res.redirect("/chamados");
 });
 
 app.listen(port, () => {
