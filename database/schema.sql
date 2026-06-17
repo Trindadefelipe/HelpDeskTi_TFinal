@@ -8,16 +8,19 @@ CREATE TABLE IF NOT EXISTS usuarios(
     perfil VARCHAR(20) NOT NULL --solicitante, tecnico, admin
 );
 
+CREATE TABLE IF NOT EXISTS departamentos(
+    id_departamento SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    responsavel VARCHAR(100),
+    localizacao VARCHAR(150)
+);
+
 CREATE TABLE IF NOT EXISTS tecnicos(
     id_tecnico SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
-    email VARCHAR(150) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS departamentos(
-    id_departamento SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL
+    email VARCHAR(150) NOT NULL,
+    id_departamento INT REFERENCES departamentos(id_departamento)
 );
 
 CREATE TABLE IF NOT EXISTS status(

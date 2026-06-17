@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamentos - HelpDesk de TI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/departamentos">HelpDesk de TI</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Departamentos</h2>
+            <a href="/departamentos/novo" class="btn btn-primary">Novo Departamento</a>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Responsável</th>
+                            <th>Localização</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (departamentos.length > 0) { %>
+                            <% departamentos.forEach(dep => { %>
+                                <tr>
+                                    <td><%= dep.id_departamento %></td>
+                                    <td><%= dep.nome %></td>
+                                    <td><%= dep.responsavel || '-' %></td>
+                                    <td><%= dep.localizacao || '-' %></td>
+                                    <td>
+                                        <a href="/departamentos/<%= dep.id_departamento %>/editar" class="btn btn-sm btn-warning">Editar</a>
+                                        <form action="/departamentos/<%= dep.id_departamento %>/excluir" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="5" class="text-center p-3">Nenhum departamento cadastrado.</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
