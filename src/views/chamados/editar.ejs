@@ -1,0 +1,80 @@
+<%- include('../partials/layout-start', { title: 'Editar Chamado - Helpdesk TI', active: 'dashboard' }) %>
+
+<a href="/chamados" class="back-link"><i class="bi bi-arrow-left"></i> Voltar</a>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Editar Chamado #<%= chamado.id_chamado %></h1>
+        <p class="page-subtitle">Altere as informações do chamado</p>
+    </div>
+</div>
+
+<div class="panel form-card">
+    <form action="/chamados/editar/<%= chamado.id_chamado %>" method="POST">
+        <div class="field">
+            <label class="label-app" for="titulo">Título <span class="req">*</span></label>
+            <input class="input-app" type="text" id="titulo" name="titulo" value="<%= chamado.titulo %>" required>
+        </div>
+
+        <div class="field">
+            <label class="label-app" for="descricao">Descrição <span class="req">*</span></label>
+            <textarea class="textarea-app" id="descricao" name="descricao" required><%= chamado.descricao %></textarea>
+        </div>
+
+        <div class="form-grid-2">
+            <div class="field">
+                <label class="label-app" for="id_status">Status <span class="req">*</span></label>
+                <select class="select-app" id="id_status" name="id_status" required>
+                    <% opcoes.status.forEach(s => { %>
+                        <option value="<%= s.id_status %>" <%= String(chamado.id_status) === String(s.id_status) ? 'selected' : '' %>><%= s.descricao %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="field">
+                <label class="label-app" for="id_categoria">Categoria <span class="req">*</span></label>
+                <select class="select-app" id="id_categoria" name="id_categoria" required>
+                    <% opcoes.categorias.forEach(cat => { %>
+                        <option value="<%= cat.id_categoria %>" <%= String(chamado.id_categoria) === String(cat.id_categoria) ? 'selected' : '' %>><%= cat.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label-app" for="id_usuario">Solicitante <span class="req">*</span></label>
+            <select class="select-app" id="id_usuario" name="id_usuario" required>
+                <% opcoes.usuarios.forEach(u => { %>
+                    <option value="<%= u.id_usuario %>" <%= String(chamado.id_usuario) === String(u.id_usuario) ? 'selected' : '' %>><%= u.nome %></option>
+                <% }) %>
+            </select>
+        </div>
+
+        <div class="form-grid-2">
+            <div class="field">
+                <label class="label-app" for="id_tecnico">Técnico</label>
+                <select class="select-app" id="id_tecnico" name="id_tecnico">
+                    <option value="">Não atribuído</option>
+                    <% opcoes.tecnicos.forEach(t => { %>
+                        <option value="<%= t.id_tecnico %>" <%= String(chamado.id_tecnico) === String(t.id_tecnico) ? 'selected' : '' %>><%= t.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="field">
+                <label class="label-app" for="id_departamento">Departamento</label>
+                <select class="select-app" id="id_departamento" name="id_departamento">
+                    <option value="">Não informado</option>
+                    <% opcoes.departamentos.forEach(d => { %>
+                        <option value="<%= d.id_departamento %>" <%= String(chamado.id_departamento) === String(d.id_departamento) ? 'selected' : '' %>><%= d.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-app btn-dark-app">Salvar Alterações</button>
+            <a href="/chamados" class="btn-app btn-outline-app">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<%- include('../partials/layout-end') %>

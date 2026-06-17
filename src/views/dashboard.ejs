@@ -1,0 +1,104 @@
+<%- include('partials/layout-start', { title: 'Dashboard - Helpdesk TI', active: 'dashboard' }) %>
+
+<%
+    const statusBadge = { 'Aberto': 'badge-dark', 'Em Andamento': 'badge-muted', 'Resolvido': 'badge-green', 'Fechado': 'badge-danger' };
+    const statusIcon  = { 'Aberto': 'bi-clock', 'Em Andamento': 'bi-clock', 'Resolvido': 'bi-check-circle', 'Fechado': 'bi-x-circle' };
+    const prioBadge   = { 'Alta': 'badge-danger', 'Média': 'badge-dark', 'Baixa': 'badge-muted' };
+%>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">Gerenciamento de Chamados de TI</p>
+    </div>
+    <a href="/chamados/novo" class="btn-app btn-dark-app"><i class="bi bi-plus-lg"></i> Novo Chamado</a>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">Total de Chamados</div>
+        <div class="stat-value"><%= stats.total %></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Abertos</div>
+        <div class="stat-value blue"><%= stats.abertos %></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Em Andamento</div>
+        <div class="stat-value orange"><%= stats.andamento %></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Resolvidos</div>
+        <div class="stat-value green"><%= stats.resolvidos %></div>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="toolbar">
+        <div class="search-box">
+            <i class="bi bi-search"></i>
+            <input class="input-app" type="text" placeholder="Buscar chamados...">
+        </div>
+        <select class="select-app" style="max-width: 200px;">
+            <option>Todos os Status</option>
+            <option>Aberto</option>
+            <option>Em Andamento</option>
+            <option>Resolvido</option>
+            <option>Fechado</option>
+        </select>
+        <select class="select-app" style="max-width: 200px;">
+            <option>Todas as Prioridades</option>
+            <option>Alta</option>
+            <option>Média</option>
+            <option>Baixa</option>
+        </select>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-head">
+        <h2 class="panel-title">Chamados</h2>
+        <p class="panel-subtitle"><%= chamados.length %> chamados encontrados</p>
+    </div>
+
+    <table class="table-app">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Usuário</th>
+                <th>Categoria</th>
+                <th>Prioridade</th>
+                <th>Status</th>
+                <th>Data</th>
+                <th class="text-end">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% chamados.forEach(c => { %>
+                <tr>
+                    <td class="id-cell">#<%= c.id %></td>
+                    <td class="title-cell"><%= c.titulo %></td>
+                    <td><%= c.usuario %></td>
+                    <td><%= c.categoria %></td>
+                    <td>
+                        <span class="badge-app <%= prioBadge[c.prioridade] || 'badge-muted' %>"><%= c.prioridade %></span>
+                    </td>
+                    <td>
+                        <span class="badge-app <%= statusBadge[c.status] || 'badge-muted' %>">
+                            <i class="bi <%= statusIcon[c.status] || 'bi-clock' %>"></i> <%= c.status %>
+                        </span>
+                    </td>
+                    <td><%= c.data %></td>
+                    <td>
+                        <div class="actions-cell">
+                            <a href="/chamados/editar/<%= c.id %>" class="btn-app btn-outline-app">Ver Detalhes</a>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('partials/layout-end') %>
