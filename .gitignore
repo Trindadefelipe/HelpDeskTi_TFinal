@@ -137,3 +137,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+plano.md
+reset_senha_postgres.ps1

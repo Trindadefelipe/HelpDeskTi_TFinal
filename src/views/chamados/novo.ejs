@@ -1,0 +1,80 @@
+<%- include('../partials/layout-start', { title: 'Novo Chamado - Helpdesk TI', active: 'novo-chamado' }) %>
+
+<a href="/chamados" class="back-link"><i class="bi bi-arrow-left"></i> Voltar</a>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Novo Chamado</h1>
+        <p class="page-subtitle">Preencha as informações para abrir um novo chamado</p>
+    </div>
+</div>
+
+<div class="panel form-card">
+    <form action="/chamados/novo" method="POST">
+        <div class="field">
+            <label class="label-app" for="titulo">Título <span class="req">*</span></label>
+            <input class="input-app" type="text" id="titulo" name="titulo" required>
+        </div>
+
+        <div class="field">
+            <label class="label-app" for="descricao">Descrição <span class="req">*</span></label>
+            <textarea class="textarea-app" id="descricao" name="descricao" required></textarea>
+        </div>
+
+        <div class="form-grid-2">
+            <div class="field">
+                <label class="label-app" for="id_status">Status <span class="req">*</span></label>
+                <select class="select-app" id="id_status" name="id_status" required>
+                    <% opcoes.status.forEach(s => { %>
+                        <option value="<%= s.id_status %>"><%= s.descricao %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="field">
+                <label class="label-app" for="id_categoria">Categoria <span class="req">*</span></label>
+                <select class="select-app" id="id_categoria" name="id_categoria" required>
+                    <% opcoes.categorias.forEach(cat => { %>
+                        <option value="<%= cat.id_categoria %>"><%= cat.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label-app" for="id_usuario">Solicitante <span class="req">*</span></label>
+            <select class="select-app" id="id_usuario" name="id_usuario" required>
+                <% opcoes.usuarios.forEach(u => { %>
+                    <option value="<%= u.id_usuario %>"><%= u.nome %></option>
+                <% }) %>
+            </select>
+        </div>
+
+        <div class="form-grid-2">
+            <div class="field">
+                <label class="label-app" for="id_tecnico">Técnico</label>
+                <select class="select-app" id="id_tecnico" name="id_tecnico">
+                    <option value="">Não atribuído</option>
+                    <% opcoes.tecnicos.forEach(t => { %>
+                        <option value="<%= t.id_tecnico %>"><%= t.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="field">
+                <label class="label-app" for="id_departamento">Departamento</label>
+                <select class="select-app" id="id_departamento" name="id_departamento">
+                    <option value="">Não informado</option>
+                    <% opcoes.departamentos.forEach(d => { %>
+                        <option value="<%= d.id_departamento %>"><%= d.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-app btn-dark-app">Criar Chamado</button>
+            <a href="/chamados" class="btn-app btn-outline-app">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<%- include('../partials/layout-end') %>
