@@ -1,0 +1,29 @@
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <h1>Helpdesk TI</h1>
+        <button class="toggle" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menu">
+            <i class="bi bi-list"></i>
+        </button>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a href="/" class="nav-link-app <%= active === 'dashboard' ? 'active' : '' %>">
+            <i class="bi bi-grid"></i> Dashboard
+        </a>
+        <a href="/chamados/novo" class="nav-link-app <%= active === 'novo-chamado' ? 'active' : '' %>">
+            <i class="bi bi-ticket-detailed"></i> Novo Chamado
+        </a>
+        <a href="/categorias" class="nav-link-app <%= active === 'categorias' ? 'active' : '' %>">
+            <i class="bi bi-tag"></i> Categorias
+        </a>
+        <a href="/prioridades" class="nav-link-app <%= active === 'prioridades' ? 'active' : '' %>">
+            <i class="bi bi-exclamation-circle"></i> Prioridades
+        </a>
+        <a href="/tecnicos" class="nav-link-app <%= active === 'tecnicos' ? 'active' : '' %>">
+            <i class="bi bi-people"></i> Técnicos
+        </a>
+        <a href="/departamentos" class="nav-link-app <%= active === 'departamentos' ? 'active' : '' %>">
+            <i class="bi bi-building"></i> Departamentos
+        </a>
+    </nav>
+</aside>

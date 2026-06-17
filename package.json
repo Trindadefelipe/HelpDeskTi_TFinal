@@ -17,7 +17,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
-    "prod": "node app.js"
+    "prod": "node app.js",
+    "db:setup": "node database/setup.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
