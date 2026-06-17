@@ -16,6 +16,10 @@
             <h2>Helpdesk TI</h2>
             <p class="subtitle">Sistema de Gerenciamento de Chamados</p>
 
+            <% if (erro) { %>
+                <div class="alert-app"><%= erro %></div>
+            <% } %>
+
             <form action="/login" method="POST">
                 <div class="field">
                     <label class="label-app" for="email">E-mail</label>

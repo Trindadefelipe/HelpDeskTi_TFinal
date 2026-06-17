@@ -1,0 +1,53 @@
+<%- include('../partials/layout-start', { title: 'Departamentos - Helpdesk TI', active: 'departamentos' }) %>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Departamentos</h1>
+        <p class="page-subtitle">Gerenciamento de departamentos da organização</p>
+    </div>
+    <a href="/departamentos/novo" class="btn-app btn-dark-app"><i class="bi bi-plus-lg"></i> Novo Departamento</a>
+</div>
+
+<div class="panel">
+    <div class="panel-head">
+        <h2 class="panel-title">Lista de Departamentos</h2>
+        <p class="panel-subtitle"><%= departamentos.length %> departamento(s) encontrado(s)</p>
+    </div>
+
+    <table class="table-app">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Responsável</th>
+                <th>Localização</th>
+                <th class="text-end">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (departamentos.length === 0) { %>
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 24px; color: #64748b;">Nenhum departamento cadastrado.</td>
+                </tr>
+            <% } %>
+            <% departamentos.forEach(dep => { %>
+                <tr>
+                    <td class="id-cell">#<%= dep.id_departamento %></td>
+                    <td class="title-cell"><%= dep.nome %></td>
+                    <td><%= dep.responsavel || '—' %></td>
+                    <td><%= dep.localizacao || '—' %></td>
+                    <td>
+                        <div class="actions-cell">
+                            <a href="/departamentos/<%= dep.id_departamento %>/editar" class="btn-app btn-outline-app">Editar</a>
+                            <form action="/departamentos/<%= dep.id_departamento %>/excluir" method="POST" style="display: inline;" onsubmit="return confirm('Excluir este departamento?');">
+                                <button type="submit" class="btn-app btn-danger-app">Excluir</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/layout-end') %>

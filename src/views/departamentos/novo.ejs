@@ -1,0 +1,36 @@
+<%- include('../partials/layout-start', { title: 'Novo Departamento - Helpdesk TI', active: 'departamentos' }) %>
+
+<a href="/departamentos" class="back-link"><i class="bi bi-arrow-left"></i> Voltar</a>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Novo Departamento</h1>
+        <p class="page-subtitle">Preencha as informações para cadastrar um departamento</p>
+    </div>
+</div>
+
+<div class="panel form-card">
+    <form action="/departamentos" method="POST">
+        <div class="field">
+            <label class="label-app" for="nome">Nome <span class="req">*</span></label>
+            <input class="input-app" type="text" id="nome" name="nome" required>
+        </div>
+
+        <div class="field">
+            <label class="label-app" for="responsavel">Responsável</label>
+            <input class="input-app" type="text" id="responsavel" name="responsavel">
+        </div>
+
+        <div class="field">
+            <label class="label-app" for="localizacao">Localização</label>
+            <input class="input-app" type="text" id="localizacao" name="localizacao">
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-app btn-dark-app">Salvar</button>
+            <a href="/departamentos" class="btn-app btn-outline-app">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<%- include('../partials/layout-end') %>

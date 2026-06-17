@@ -221,6 +221,17 @@ a { text-decoration: none; color: inherit; }
 .badge-danger { background: var(--danger); color: #fff; }
 .badge-green { background: #dcfce7; color: #15803d; }
 
+.alert-app {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: var(--danger-hover);
+    border-radius: var(--radius-sm);
+    padding: 11px 13px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
 .login-page {
     min-height: 100vh;
     display: flex;
