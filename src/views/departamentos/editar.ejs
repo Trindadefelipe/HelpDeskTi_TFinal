@@ -1,44 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Departamento - HelpDesk de TI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-    <nav class="navbar navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="/departamentos">HelpDesk de TI</a>
-        </div>
-    </nav>
+<%- include('../partials/layout-start', { title: 'Editar Departamento - Helpdesk TI', active: 'departamentos' }) %>
 
-    <div class="container" style="max-width: 600px;">
-        <h2 class="mb-3">Editar Departamento</h2>
+<a href="/departamentos" class="back-link"><i class="bi bi-arrow-left"></i> Voltar</a>
 
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <form action="/departamentos/<%= departamento.id_departamento %>" method="POST">
-                    <div class="mb-3">
-                        <label for="nome" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="nome" name="nome" value="<%= departamento.nome %>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="responsavel" class="form-label">Responsável</label>
-                        <input type="text" class="form-control" id="responsavel" name="responsavel" value="<%= departamento.responsavel || '' %>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="localizacao" class="form-label">Localização</label>
-                        <input type="text" class="form-control" id="localizacao" name="localizacao" value="<%= departamento.localizacao || '' %>">
-                    </div>
-
-                    <div class="d-flex justify-content-between mt-4">
-                        <a href="/departamentos" class="btn btn-secondary">Cancelar</a>
-                        <button type="submit" class="btn btn-warning">Atualizar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Editar Departamento</h1>
+        <p class="page-subtitle">Atualize as informações do departamento</p>
     </div>
-</body>
-</html>
+</div>
+
+<div class="panel form-card">
+    <form action="/departamentos/<%= departamento.id_departamento %>" method="POST">
+        <div class="field">
+            <label class="label-app" for="nome">Nome <span class="req">*</span></label>
+            <input class="input-app" type="text" id="nome" name="nome" value="<%= departamento.nome %>" required>
+        </div>
+
+        <div class="field">
+            <label class="label-app" for="responsavel">Responsável</label>
+            <input class="input-app" type="text" id="responsavel" name="responsavel" value="<%= departamento.responsavel || '' %>">
+        </div>
+
+        <div class="field">
+            <label class="label-app" for="localizacao">Localização</label>
+            <input class="input-app" type="text" id="localizacao" name="localizacao" value="<%= departamento.localizacao || '' %>">
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-app btn-dark-app">Atualizar</button>
+            <a href="/departamentos" class="btn-app btn-outline-app">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<%- include('../partials/layout-end') %>

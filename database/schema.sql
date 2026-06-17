@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS usuarios(
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
     senha_hash VARCHAR(255) NOT NULL, --vai guardar o hash do bcrypt
-    perfil VARCHAR(20) NOT NULL --solicitante, tecnico, admin
+    perfil VARCHAR(20) NOT NULL, --solicitante, tecnico, admin
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE IF NOT EXISTS departamentos(
