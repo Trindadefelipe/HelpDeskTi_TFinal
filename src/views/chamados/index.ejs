@@ -50,6 +50,7 @@
                     <td><%= new Date(c.data_abertura).toLocaleDateString('pt-BR') %></td>
                     <td>
                         <div class="actions-cell">
+                            <a href="/chamados/<%= c.id_chamado %>/historico" class="btn-app btn-outline-app">Histórico</a>
                             <a href="/chamados/editar/<%= c.id_chamado %>" class="btn-app btn-outline-app">Editar</a>
                             <form action="/chamados/excluir/<%= c.id_chamado %>" method="POST" style="display: inline;" onsubmit="return confirm('Excluir este chamado?');">
                                 <button type="submit" class="btn-app btn-danger-app">Excluir</button>

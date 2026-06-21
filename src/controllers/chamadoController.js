@@ -63,6 +63,20 @@ const chamadoController = {
             console.error(erro);
             res.status(500).send("Erro ao excluir o chamado.");
         }
+    },
+
+    async historico(req, res) {
+        try {
+            const chamado = await Chamado.buscarPorId(req.params.id);
+            if (!chamado) {
+                return res.status(404).send("Chamado nao encontrado.");
+            }
+            const historico = await Chamado.listarHistorico(req.params.id);
+            res.render("chamados/historico", { chamado, historico });
+        } catch (erro) {
+            console.error(erro);
+            res.status(500).send("Erro ao carregar o historico.");
+        }
     }
 };
 

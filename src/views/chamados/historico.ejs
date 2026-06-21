@@ -1,0 +1,47 @@
+<%- include('../partials/layout-start', { title: 'Histórico do Chamado - Helpdesk TI', active: 'dashboard' }) %>
+
+<a href="/chamados" class="back-link"><i class="bi bi-arrow-left"></i> Voltar</a>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Histórico do Chamado #<%= chamado.id_chamado %></h1>
+        <p class="page-subtitle"><%= chamado.titulo %></p>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-head">
+        <h2 class="panel-title">Linha do Tempo</h2>
+        <p class="panel-subtitle"><%= historico.length %> registro(s)</p>
+    </div>
+
+    <table class="table-app">
+        <thead>
+            <tr>
+                <th>Data/Hora</th>
+                <th>Status Anterior</th>
+                <th>Status Novo</th>
+                <th>Técnico</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (historico.length === 0) { %>
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 24px; color: #64748b;">Nenhum registro de histórico.</td>
+                </tr>
+            <% } %>
+            <% historico.forEach(h => { %>
+                <tr>
+                    <td><%= new Date(h.data_hora).toLocaleString('pt-BR') %></td>
+                    <td><%= h.status_anterior || '—' %></td>
+                    <td><%= h.status_novo || '—' %></td>
+                    <td><%= h.tecnico || '—' %></td>
+                    <td><%= h.descricao || '—' %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/layout-end') %>

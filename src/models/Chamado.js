@@ -48,10 +48,17 @@ const Chamado = {
             dados.id_departamento || null
         ];
         const resultado = await pool.query(sql, valores);
-        return resultado.rows[0].id_chamado;
+        const idChamado = resultado.rows[0].id_chamado;
+
+        const statusNovo = await this._descricaoStatus(dados.id_status);
+        await this._registrarHistorico(idChamado, null, statusNovo, dados.id_tecnico || null, "Abertura do chamado");
+
+        return idChamado;
     },
 
     async atualizar(id, dados) {
+        const anterior = await this.buscarPorId(id);
+
         const sql = `
             UPDATE chamados SET
                 titulo = $1,
@@ -74,6 +81,45 @@ const Chamado = {
             id
         ];
         await pool.query(sql, valores);
+
+        if (anterior && String(anterior.id_status) !== String(dados.id_status)) {
+            const statusAnterior = await this._descricaoStatus(anterior.id_status);
+            const statusNovo = await this._descricaoStatus(dados.id_status);
+            await this._registrarHistorico(id, statusAnterior, statusNovo, dados.id_tecnico || null, null);
+        }
+    },
+
+    async _descricaoStatus(idStatus) {
+        if (!idStatus) return null;
+        const resultado = await pool.query("SELECT descricao FROM status WHERE id_status = $1", [idStatus]);
+        return resultado.rows[0] ? resultado.rows[0].descricao : null;
+    },
+
+    async _registrarHistorico(idChamado, statusAnterior, statusNovo, idTecnico, descricao) {
+        const sql = `
+            INSERT INTO historico_chamados
+                (id_chamado, status_anterior, status_novo, id_tecnico, descricao)
+            VALUES ($1, $2, $3, $4, $5)
+        `;
+        await pool.query(sql, [idChamado, statusAnterior, statusNovo, idTecnico, descricao]);
+    },
+
+    async listarHistorico(idChamado) {
+        const sql = `
+            SELECT
+                h.id_historico,
+                h.status_anterior,
+                h.status_novo,
+                h.data_hora,
+                h.descricao,
+                t.nome AS tecnico
+            FROM historico_chamados h
+            LEFT JOIN tecnicos t ON t.id_tecnico = h.id_tecnico
+            WHERE h.id_chamado = $1
+            ORDER BY h.data_hora ASC
+        `;
+        const resultado = await pool.query(sql, [idChamado]);
+        return resultado.rows;
     },
 
     async excluir(id) {
