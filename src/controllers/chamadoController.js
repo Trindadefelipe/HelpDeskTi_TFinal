@@ -55,13 +55,13 @@ const chamadoController = {
         }
     },
 
-    async excluir(req, res) {
+    async cancelar(req, res) {
         try {
-            await Chamado.excluir(req.params.id);
+            await Chamado.cancelar(req.params.id);
             res.redirect("/chamados");
         } catch (erro) {
             console.error(erro);
-            res.status(500).send("Erro ao excluir o chamado.");
+            res.status(500).send("Erro ao cancelar o chamado.");
         }
     },
 
