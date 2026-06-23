@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS chamados(
 	id_chamado SERIAL PRIMARY KEY,
 	titulo VARCHAR(150) NOT NULL,
 	descricao TEXT NOT NULL,
+	prioridade VARCHAR(20) NOT NULL DEFAULT 'Media',
 	data_abertura TIMESTAMP NOT NULL DEFAULT NOW(),
 	data_fechamento TIMESTAMP,
 	id_status INT NOT NULL REFERENCES status(id_status),
@@ -47,6 +48,9 @@ CREATE TABLE IF NOT EXISTS chamados(
 	id_usuario INT NOT NULL REFERENCES usuarios(id_usuario),
     id_categoria INT NOT NULL REFERENCES categorias(id_categoria)
 );
+
+-- garante a coluna prioridade em bancos que ja existiam
+ALTER TABLE chamados ADD COLUMN IF NOT EXISTS prioridade VARCHAR(20) NOT NULL DEFAULT 'Media';
 
 CREATE TABLE IF NOT EXISTS historico_chamados(
 	id_historico SERIAL PRIMARY KEY,

@@ -2,6 +2,7 @@
 
 <%
     const statusBadge = { 'Aberto': 'badge-dark', 'Em Atendimento': 'badge-muted', 'Resolvido': 'badge-green', 'Cancelado': 'badge-danger' };
+    const prioBadge = { 'Baixa': 'badge-muted', 'Media': 'badge-dark', 'Alta': 'badge-danger' };
 %>
 
 <div class="page-header">
@@ -25,6 +26,7 @@
                 <th>Título</th>
                 <th>Solicitante</th>
                 <th>Categoria</th>
+                <th>Prioridade</th>
                 <th>Status</th>
                 <th>Técnico</th>
                 <th>Departamento</th>
@@ -35,7 +37,7 @@
         <tbody>
             <% if (chamados.length === 0) { %>
                 <tr>
-                    <td colspan="9" style="text-align: center; padding: 24px; color: #64748b;">Nenhum chamado cadastrado.</td>
+                    <td colspan="10" style="text-align: center; padding: 24px; color: #64748b;">Nenhum chamado cadastrado.</td>
                 </tr>
             <% } %>
             <% chamados.forEach(c => { %>
@@ -44,6 +46,7 @@
                     <td class="title-cell"><%= c.titulo %></td>
                     <td><%= c.solicitante %></td>
                     <td><%= c.categoria %></td>
+                    <td><span class="badge-app <%= prioBadge[c.prioridade] || 'badge-muted' %>"><%= c.prioridade === 'Media' ? 'Média' : c.prioridade %></span></td>
                     <td><span class="badge-app <%= statusBadge[c.status] || 'badge-muted' %>"><%= c.status %></span></td>
                     <td><%= c.tecnico || '—' %></td>
                     <td><%= c.departamento || '—' %></td>
@@ -52,8 +55,8 @@
                         <div class="actions-cell">
                             <a href="/chamados/<%= c.id_chamado %>/historico" class="btn-app btn-outline-app">Histórico</a>
                             <a href="/chamados/editar/<%= c.id_chamado %>" class="btn-app btn-outline-app">Editar</a>
-                            <form action="/chamados/excluir/<%= c.id_chamado %>" method="POST" style="display: inline;" onsubmit="return confirm('Excluir este chamado?');">
-                                <button type="submit" class="btn-app btn-danger-app">Excluir</button>
+                            <form action="/chamados/cancelar/<%= c.id_chamado %>" method="POST" style="display: inline;" onsubmit="return confirm('Cancelar este chamado?');">
+                                <button type="submit" class="btn-app btn-danger-app">Cancelar</button>
                             </form>
                         </div>
                     </td>
