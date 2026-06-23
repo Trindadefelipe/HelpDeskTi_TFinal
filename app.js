@@ -22,7 +22,7 @@ app.use(session({
 }));
 
 app.use('/', authRoutes);
-app.use("/chamados", chamadoRoutes);
+app.use("/chamados", requireLogin, chamadoRoutes);
 app.use('/departamentos', requireLogin, requireAdmin, departamentoRoutes);
 
 app.get("/", (req, res) => {

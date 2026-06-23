@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const Usuario = require('../models/Usuario');
 
 function loginForm(req, res) {
@@ -29,10 +30,21 @@ async function login(req, res) {
         perfil: usuario.perfil
     };
 
-    res.redirect('/departamentos');
+    const token = jwt.sign(
+        { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email, perfil: usuario.perfil },
+        process.env.JWT_SECRET,
+        { expiresIn: '8h' }
+    );
+    res.cookie('token', token, { httpOnly: true, maxAge: 8 * 60 * 60 * 1000 });
+
+    if (usuario.perfil === 'admin') {
+        return res.redirect('/departamentos');
+    }
+    res.redirect('/chamados');
 }
 
 function logout(req, res) {
+    res.clearCookie('token');
     req.session.destroy(() => {
         res.redirect('/login');
     });

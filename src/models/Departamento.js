@@ -10,6 +10,14 @@ async function buscarPorId(id) {
     return result.rows[0];
 }
 
+async function buscarPorNome(nome, idIgnorado) {
+    const result = await pool.query(
+        'SELECT * FROM departamentos WHERE LOWER(nome) = LOWER($1) AND id_departamento != $2',
+        [nome, idIgnorado || 0]
+    );
+    return result.rows[0];
+}
+
 async function criar(nome, responsavel, localizacao) {
     const result = await pool.query(
         'INSERT INTO departamentos (nome, responsavel, localizacao) VALUES ($1, $2, $3) RETURNING *',
@@ -39,4 +47,4 @@ async function excluir(id) {
     await pool.query('DELETE FROM departamentos WHERE id_departamento = $1', [id]);
 }
 
-module.exports = { listarTodos, buscarPorId, criar, atualizar, excluir, contarVinculos };
+module.exports = { listarTodos, buscarPorId, buscarPorNome, criar, atualizar, excluir, contarVinculos };
