@@ -6,13 +6,17 @@ async function index(req, res) {
 }
 
 function novo(req, res) {
-    res.render('departamentos/novo');
+    res.render('departamentos/novo', { erro: null });
 }
 
 async function criar(req, res) {
     const { nome, responsavel, localizacao } = req.body;
     if (!nome) {
         return res.redirect('/departamentos/novo');
+    }
+    const existente = await Departamento.buscarPorNome(nome);
+    if (existente) {
+        return res.render('departamentos/novo', { erro: 'Já existe um departamento com esse nome.' });
     }
     await Departamento.criar(nome, responsavel, localizacao);
     res.redirect('/departamentos');
@@ -23,13 +27,18 @@ async function editar(req, res) {
     if (!departamento) {
         return res.status(404).send('Departamento não encontrado.');
     }
-    res.render('departamentos/editar', { departamento });
+    res.render('departamentos/editar', { departamento, erro: null });
 }
 
 async function atualizar(req, res) {
     const { nome, responsavel, localizacao } = req.body;
     if (!nome) {
         return res.redirect(`/departamentos/${req.params.id}/editar`);
+    }
+    const existente = await Departamento.buscarPorNome(nome, req.params.id);
+    if (existente) {
+        const departamento = await Departamento.buscarPorId(req.params.id);
+        return res.render('departamentos/editar', { departamento, erro: 'Já existe um departamento com esse nome.' });
     }
     await Departamento.atualizar(req.params.id, nome, responsavel, localizacao);
     res.redirect('/departamentos');

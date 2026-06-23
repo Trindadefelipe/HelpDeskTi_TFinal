@@ -10,6 +10,9 @@
 </div>
 
 <div class="panel form-card">
+    <% if (erro) { %>
+        <div class="alert-app"><%= erro %></div>
+    <% } %>
     <form action="/departamentos/<%= departamento.id_departamento %>" method="POST">
         <div class="field">
             <label class="label-app" for="nome">Nome <span class="req">*</span></label>
