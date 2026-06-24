@@ -1,24 +1,41 @@
-//importando dependencias
+// importando dependências
 const express = require("express");
-const app  = express();
+
+const app = express();
 const port = 3000;
-const { pool } = require("../database/db");
-//configuração dos servidor para poder utilizar o EJS como view engine
-app.set('view engine', 'ejs');
-//configuração opcional - informando ao express aonde ele deve procurar as views
-app.set('views', './src/views');
 
+// importando rotas
+const categoriaRoutes = require("./src/routes/categoriaRoutes");
 
-app.get('/', (req,res) => {
-    res.send("<h1>Servidor no ar!</h1>");
-})
+// configurando o EJS como view engine
+app.set("view engine", "ejs");
 
-app.get('/teste', (req,res) => {
-    const TITULO = 'HelpDesk de TI';
-    res.render('index', {titulo: TITULO});
-})
+// informando onde ficam as views
+app.set("views", "./src/views");
 
-//inicializando o servidor
+// configurando o Express para receber dados de formulários
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// rota inicial
+app.get("/", (req, res) => {
+    res.send(`
+        <h1>Servidor no ar!</h1>
+        <a href="/categorias">Acessar CRUD de Categorias</a>
+    `);
+});
+
+// rota de categorias
+app.use("/categorias", categoriaRoutes);
+
+// rota de teste
+app.get("/teste", (req, res) => {
+    const TITULO = "HelpDesk de TI";
+    res.render("index", { titulo: TITULO });
+});
+
+// inicializando o servidor
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
+    console.log(`Acesse: http://localhost:${port}/categorias`);
 });

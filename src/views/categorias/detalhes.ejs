@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes da Categoria</title>
+</head>
+<body>
+
+    <h1>Detalhes da Categoria</h1>
+
+    <p><strong>ID:</strong> <%= categoria.id_categoria %></p>
+    <p><strong>Nome:</strong> <%= categoria.nome %></p>
+    <p><strong>Descrição:</strong> <%= categoria.descricao %></p>
+    <p><strong>Prioridade:</strong> <%= categoria.prioridade %></p>
+
+    <a href="/categorias/editar/<%= categoria.id_categoria %>">Editar</a>
+    |
+    <a href="/categorias">Voltar</a>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title><%= categoria ? 'Editar Categoria' : 'Nova Categoria' %></title>
+</head>
+<body>
+
+    <h1><%= categoria ? 'Editar Categoria' : 'Cadastrar Categoria' %></h1>
+
+    <% if (erro) { %>
+        <p style="color: red;"><%= erro %></p>
+    <% } %>
+
+    <form 
+        action="<%= categoria ? '/categorias/editar/' + categoria.id_categoria : '/categorias/novo' %>" 
+        method="POST"
+    >
+        <label for="nome">Nome:</label>
+        <br>
+        <input 
+            type="text" 
+            id="nome" 
+            name="nome" 
+            value="<%= categoria ? categoria.nome : '' %>" 
+            required
+        >
+
+        <br><br>
+
+        <label for="descricao">Descrição:</label>
+        <br>
+        <textarea 
+            id="descricao" 
+            name="descricao" 
+            rows="5" 
+            cols="40"
+        ><%= categoria ? categoria.descricao : '' %></textarea>
+
+        <br><br>
+
+        <label for="prioridade">Prioridade:</label>
+        <br>
+        <select id="prioridade" name="prioridade">
+            <option value="Baixa" <%= categoria && categoria.prioridade === 'Baixa' ? 'selected' : '' %>>Baixa</option>
+            <option value="Média" <%= !categoria || categoria.prioridade === 'Média' ? 'selected' : '' %>>Média</option>
+            <option value="Alta" <%= categoria && categoria.prioridade === 'Alta' ? 'selected' : '' %>>Alta</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            <%= categoria ? 'Salvar alterações' : 'Cadastrar' %>
+        </button>
+
+        <a href="/categorias">Cancelar</a>
+    </form>
+
+</body>
+</html>

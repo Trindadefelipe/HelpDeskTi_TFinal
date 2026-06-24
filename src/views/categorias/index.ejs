@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Categorias</title>
+</head>
+<body>
+
+    <h1>CRUD de Categorias</h1>
+
+    <a href="/categorias/novo">Cadastrar nova categoria</a>
+
+    <br><br>
+
+    <% if (categorias.length === 0) { %>
+        <p>Nenhuma categoria cadastrada.</p>
+    <% } else { %>
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Prioridade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% categorias.forEach(categoria => { %>
+                    <tr>
+                        <td><%= categoria.id_categoria %></td>
+                        <td><%= categoria.nome %></td>
+                        <td><%= categoria.descricao %></td>
+                        <td><%= categoria.prioridade %></td>
+                        <td>
+                            <a href="/categorias/detalhes/<%= categoria.id_categoria %>">Detalhes</a>
+                            |
+                            <a href="/categorias/editar/<%= categoria.id_categoria %>">Editar</a>
+                            |
+                            <form 
+                                action="/categorias/excluir/<%= categoria.id_categoria %>" 
+                                method="POST" 
+                                style="display:inline;"
+                            >
+                                <button type="submit" onclick="return confirm('Deseja excluir esta categoria?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+
+</body>
+</html>
