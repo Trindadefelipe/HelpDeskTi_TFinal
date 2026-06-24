@@ -70,6 +70,10 @@ a { text-decoration: none; color: inherit; }
 .nav-link-app:hover { background: #f6f8fb; color: var(--ink); }
 .nav-link-app.active { background: #eef1f6; color: var(--ink); font-weight: 600; }
 
+.sidebar-footer { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+.nav-link-logout { color: #c0392b; }
+.nav-link-logout:hover { background: #fdecea; color: #c0392b; }
+
 .content {
     flex: 1;
     margin-left: 250px;
