@@ -11,16 +11,16 @@ async function login(req, res) {
     const usuario = await Usuario.buscarPorEmail(email);
 
     if (!usuario) {
-        return res.render('auth/login', { erro: 'E-mail ou senha inválidos.' });
+        return res.status(401).render('auth/login', { erro: 'E-mail ou senha inválidos.' });
     }
 
     if (!usuario.ativo) {
-        return res.render('auth/login', { erro: 'Usuário inativo. Contate o administrador.' });
+        return res.status(403).render('auth/login', { erro: 'Usuário inativo. Contate o administrador.' });
     }
 
     const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
     if (!senhaValida) {
-        return res.render('auth/login', { erro: 'E-mail ou senha inválidos.' });
+        return res.status(401).render('auth/login', { erro: 'E-mail ou senha inválidos.' });
     }
 
     req.session.usuario = {

@@ -21,5 +21,5 @@ INSERT INTO tecnicos (nome, telefone, email) VALUES
 
 -- senha dos dois usuarios: 123456
 INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES
-    ('Felipe Trindade', 'felipe@empresa.com', '$2b$10$v0/C4eg06Kityy..Zh/OXeaFUnRW843bbP8VZmDXgOAq/6c/TX5WW', 'admin'),
-    ('Maria Oliveira', 'maria@empresa.com', '$2b$10$v0/C4eg06Kityy..Zh/OXeaFUnRW843bbP8VZmDXgOAq/6c/TX5WW', 'comum');
+    ('Felipe Trindade', 'felipe@empresa.com', '$2b$10$sTgsOM2eNb0VvYY8YxF4/.5G.Adcz73c3ZlpJFU6J/yN3PzOeH5na', 'admin'),
+    ('Maria Oliveira', 'maria@empresa.com', '$2b$10$sTgsOM2eNb0VvYY8YxF4/.5G.Adcz73c3ZlpJFU6J/yN3PzOeH5na', 'comum');

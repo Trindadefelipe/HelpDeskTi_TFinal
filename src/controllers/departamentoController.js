@@ -23,6 +23,9 @@ async function criar(req, res) {
 }
 
 async function editar(req, res) {
+    if (!/^\d+$/.test(req.params.id)) {
+        return res.status(400).send('Id de departamento inválido.');
+    }
     const departamento = await Departamento.buscarPorId(req.params.id);
     if (!departamento) {
         return res.status(404).send('Departamento não encontrado.');
@@ -31,6 +34,9 @@ async function editar(req, res) {
 }
 
 async function atualizar(req, res) {
+    if (!/^\d+$/.test(req.params.id)) {
+        return res.status(400).send('Id de departamento inválido.');
+    }
     const { nome, responsavel, localizacao } = req.body;
     if (!nome) {
         return res.redirect(`/departamentos/${req.params.id}/editar`);
@@ -45,6 +51,9 @@ async function atualizar(req, res) {
 }
 
 async function excluir(req, res) {
+    if (!/^\d+$/.test(req.params.id)) {
+        return res.status(400).send('Id de departamento inválido.');
+    }
     const vinculos = await Departamento.contarVinculos(req.params.id);
     if (vinculos.tecnicos > 0 || vinculos.chamados > 0) {
         return res.status(400).send('Não é possível excluir: existem técnicos ou chamados vinculados a este departamento.');
