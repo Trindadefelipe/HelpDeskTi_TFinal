@@ -37,10 +37,7 @@ async function login(req, res) {
     );
     res.cookie('token', token, { httpOnly: true, maxAge: 8 * 60 * 60 * 1000 });
 
-    if (usuario.perfil === 'admin') {
-        return res.redirect('/departamentos');
-    }
-    res.redirect('/chamados');
+    res.redirect('/');
 }
 
 function logout(req, res) {
